@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            border: 1px solid #30b;
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <button>点击发送请求</button>
+    <div id="box"></div>
+    <script>
+        /*
+            拓展：
+                自定义请求头在后端需要进行校验
+                在chrome里可以看到发送一个methods为options类型的请求，表示参数设置。
+                没有出现自定义请求头信息的解决方法需要在后端进行修改：
+                    使用all("address",(request,response)=>{})一次性接收
+
+                前端的请求头信息一般为信息校验
+        */
+        let btn = document.getElementsByTagName('button')[0];
+        let result = document.getElementById("box");
+        btn.addEventListener("click", () => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:8000/server");
+            //在open方法后添加一个setRequestHeader()
+            //  参数1：请求头的名字
+            //  参数2：请求头的值
+            //  添加预定义头：
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        console.log(xhr.status);
+                        console.log(xhr.statusText);
+                        console.log(xhr.getAllResponseHeaders);
+                        console.log(xhr.response);
+                        result.innerHTML = xhr.response;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

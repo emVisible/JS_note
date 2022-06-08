@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 300px;
+            height: 300px;
+            background: firebrick;
+            transition: 1s;
+
+        }
+
+        #box:hover {
+            transform: scale(150%, 150%);
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">Click To Change Status By AJAX</button>
+    <div id="box">None</div>
+    <script>
+        let btn = document.getElementById("btn");
+        let result = document.getElementById("box");
+        btn.addEventListener("click", () => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://127.0.0.1:8000/server");
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+
+                        console.log(xhr.status);
+                        console.log(xhr.statusText);
+                        console.log(xhr.getAllResponseHeaders());
+                        console.log(xhr.response);
+                        result.innerHTML = xhr.response;
+                    }
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

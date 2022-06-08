@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    //使用cdn
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+</head>
+
+<body>
+    <button>GET</button>
+    <button>POST</button>
+    <button>AJAX</button>
+    <script>
+        let btns = document.querySelectorAll("button");
+        axios.defaults.baseURL = "http://127.0.0.1:8000";
+        btns[0].onclick = function () {
+            //GET请求发送
+            axios.get('/axios-server', {
+                //url参数
+                params: {
+                    id: 100,
+                    vip: 7
+                },
+                //请求头信息
+                headers: {
+                    name: "myAxios_get",
+                    date1: "6.7"
+                }
+            }).then(value => {
+                console.log(value);
+            })//基于promise
+        }
+        btns[1].onclick = function () {
+            axios.post("/axios-server", {
+                //体
+                username: "admin",
+                password: "admin"
+            }, {
+                //行
+                params: {
+                    id: 200,
+                    vip: 9
+                },
+                //头
+                headers: {
+                    name: "myAxios_post",
+                    date2: "6.7"
+                },
+            }).then(v => {
+                console.log(v);
+            })
+        }
+        btns[2].onclick = function (){
+            axios({
+                //方法
+                method:"POST",
+                //url
+                url:'/axios-server',
+                //url参数
+                params:{
+                    vip:10,
+                    level:30
+                },
+                //头信息
+                headers:{
+                    a:100,
+                    b:200
+                },
+                //体信息
+                data:{
+                    username:"admin",
+                    password:"admin"
+                }
+            }).then(v=>{
+                console.log(v);
+                console.log(v.status);
+                console.log(v.statusText);
+                console.log(v.headers);
+                console.log(v.data);
+            })
+        }
+    </script>
+</body>
+
+</html>

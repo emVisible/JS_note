@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #username {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    用户名：<input type="text" id="username">
+    <p id="p">sad </p>
+    <script>
+        /*
+        需求：
+            在表单中输入用户名
+            丧失焦点的时候向服务端发送请求
+            检测用户名是否存在
+            结果返回呈现---表单框颜色改变
+            */
+
+        const input = document.getElementById("username");
+        const p = document.querySelector("p");
+        //对应server端，声明handle函数
+        function handle(data) {
+            input.style.border = "solid 1px #f00";
+            //修改p提示文本
+            p.innerText = data.message;
+        }
+        input.onblur = function () {
+            //获取用户输入值
+            let username = this.value;
+            //向客户端发送请求--检测用户名是否存在
+
+            //1、创建script标签
+            const script = document.createElement("script");
+            //2、设置script的src属性
+            script.src = 'http://127.0.0.1:8000/check-username';
+            //3、script节点插入
+            document.body.appendChild(script);
+        }
+
+    </script>
+</body>
+
+</html>

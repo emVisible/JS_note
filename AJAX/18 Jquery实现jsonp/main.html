@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 300px;
+            height: 300px;
+            border: 3px solid #ccc;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+
+<body>
+    <button>Click to Change</button>
+    <div id="result"></div>
+    <script>
+        $('button').eq(0).click(function(){
+            //这里的callback=?是固定写法
+            //在chrome里，这里的callback虽然没有写，但是是有实际值的
+            //后端可以拿到实际值，将参数值作为调用函数拼接字符串
+            $.getJSON("http://127.0.0.1:8000/jquery-jsonp?callback=?"
+            ,function(data){
+                $('#result').html(`
+                    名称：${data.name}</br>
+                    城市：${data.city[1]}
+                `)
+            })
+        })
+    </script>
+</body>
+
+</html>

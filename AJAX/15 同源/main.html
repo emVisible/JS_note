@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="btn">CLIKC</button>
+    <script>
+        let btn = document.getElementsByClassName("btn")[0];
+        btn.onclick = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET",'/data'); //满足同源策略，url可简写，浏览器会自动添加协议域名和端口
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 & xhr.status < 300){
+                        console.log(xhr.response);
+                    }
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>

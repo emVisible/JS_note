@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            border: 1px solid #30b;
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <button>点击发送请求</button>
+    <div id="box"></div>
+    <script>
+
+        /*
+            GET和POST相同点：
+                1、位于前端交互的地方
+                2
+            GET和POST不同点：
+                1、GET是检索和获取 POST是创建和更新
+                2、GET参数设置(请求体)在open方法里，POST请求在send方法里   
+                    GET:url+?+参数
+                    POST:参数
+        */
+        let btn = document.getElementsByTagName('button')[0];
+        let result = document.getElementById("box");
+        btn.addEventListener("click", () => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:8000/server");
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        console.log(xhr.status);
+                        console.log(xhr.statusText);
+                        console.log(xhr.getAllResponseHeaders);
+                        console.log(xhr.response);
+                        result.innerHTML = xhr.response;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
