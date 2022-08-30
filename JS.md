@@ -6225,5 +6225,84 @@ function question_exposed() {
 
 ---
 
-、
+## 第十七章 DOM (simple)
+
+- 经过浏览器处理，都会变成规范的代码
+
+- 三种等待渲染后加载的方式
+
+  ```
+  window.onload = ()=>{}
+  settimeout(()=>{})
+  <script>  </script defer>
+  ```
+
+- # 节点
+
+  - ## 节点
+
+    - 文本节点	值为3 					注释节点    值为8
+    - 标签节点    值为1          常用  文档节点     值为9
+    - 属性节点    值为2
+    - 语法
+      - .childNodes 获取该节点下所有子节点
+      - .nodetype 判断节点类型
+
+  - ## 节点对象的原型继承 
+
+    - ```js
+      function proto(el) {
+                  const prototypes = [];
+                  prototypes.push(el.__proto__);
+                  prototypes.push(...(el.__proto__ ? proto(el.__proto__) : []));
+                  return prototypes;
+              }
+      ```
+
+      ![image-20220816104711913](C:\Users\16193\AppData\Roaming\Typora\typora-user-images\image-20220816104711913.png)
+
+    - 属性的节点ID
+
+    - 
+
+  - ## Objcet.assign 进行节点批量设置样式
+
+    ```js
+     HTMLElement.prototype = Object.assign(HTMLElement.prototype, {
+                color(color) {
+                    this.style.color = color;
+                },
+                hide() {
+                    this.style.display = 'none';
+    
+                }
+            })
+    
+    //原理：原型+assign进行复用，批量设置
+    
+    //像普通对象一样的属性和方法都可以在节点中使用
+    ```
+
+    
+
+  - ## 常用DOM节点元素
+
+    - document.nodeType
+
+    - document.title
+
+    - document.URL
+    - document.domain
+    - document.referrer'
+    - document.documentElment
+
+    - document.body
+
+    - document.head
+
+  - attributes输出标签属性的map映射
+
+  - parentElement父节点
+
+  - 获取所有能用tagName的节点，html可见节点，不包括textNode等
 
